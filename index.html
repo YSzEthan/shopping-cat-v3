@@ -68,8 +68,14 @@
                 <!-- item start -->
                 <tr class="text-lg">
                   <td x-text="cat.name"></td>
-                  <td x-html="catPrice(cat)">
-                    
+                  <td>
+                    <input 
+                      type="number" 
+                      x-model.number="cat.num" 
+                      min="0" 
+                      class="input input-bordered" 
+                      @change="updataNum(cat)"
+                    />
                   </td>
                   <td x-text="$store.data.catPrice(cat)"></td>
                   <td x-text="totalPrice(cat)"></td>

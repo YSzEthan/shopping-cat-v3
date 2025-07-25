@@ -22,7 +22,7 @@ const storedata = {
   
   async setApi(status,cat){
     
-    const adoptId =await this.adopt.findIndex(find=>find.id==cat.id)
+    const adoptId =this.adopt.findIndex(find => find.id == cat.id)
     const url=`${this.url}adopt/`;
     const adoptCat = this.adopt[adoptId]
     
@@ -45,13 +45,22 @@ const storedata = {
     }else if(status=="del"){
       this.adopt.splice(adoptId,1)
       // console.log(this.adopt);
-      
-      
       const resp = await axios.delete(url+cat.id)
       // console.log(resp);
+    }else if(status=="updata"){
+      if (cat.num > 0){
+        this.adopt[adoptId].num = cat.num;
+        const resp = await axios.patch(url+cat.id,{num:cat.num})
+        // console.log(resp);
+      }else{
+        this.adopt.splice(adoptId,1)
+        const resp = await axios.delete(url+cat.id)
+        // console.log(resp);
+      }
     }else{
       this.adopt=[]
       const resp = await axios.delete(url+cat.id) 
+      // console.log(resp);
     }
   },
 

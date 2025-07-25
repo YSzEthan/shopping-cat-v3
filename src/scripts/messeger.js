@@ -31,7 +31,11 @@ const cartShop=()=>{return{
     return show
   },
 
-  catPrice(cat){return `<input type="number" value="${cat.num}" min="0" class="input input-bordered" />`},
+  updataNum(cat){
+    console.log(cat);
+    
+    this.$store.data.setApi("updata",cat);
+  },
 
   rmAdopt(cat){
     this.$store.data.setApi("del",cat)
