@@ -1,9 +1,8 @@
-
+const header = ()=>{return{}}
 
 const commodity =() => {return{
   init(){
     this.$store.data.getApi()
-    
   },
 
 //data
@@ -32,7 +31,7 @@ const cartShop=()=>{return{
   },
 
   updataNum(cat){
-    console.log(cat);
+    // console.log(cat);
     
     this.$store.data.setApi("updata",cat);
   },
@@ -43,10 +42,8 @@ const cartShop=()=>{return{
     },
 
   get rmAllAdopt(){
-    this.$store.data.adopt.forEach(cat => this.$store.data.setApi(" ",cat)
-      
-    );
+    this.$store.data.setApi(" ","cat")
   }
 }}
 
-export {commodity,cartShop} ;
+export {commodity,cartShop,header} ;

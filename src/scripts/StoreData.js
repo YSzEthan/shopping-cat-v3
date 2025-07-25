@@ -1,20 +1,29 @@
 import axios from 'axios'
 
-
 const storedata = {
 //data
   url:"http://localhost:3002/",
   cats: [],
   adopt:[],
+  totalAmout:"",
   
   //function
+  get countTotalAmount(){
+    if(this.adopt.length != 0){
+      this.totalAmout = ` 購物車 ${this.adopt.map(amount =>amount.num).reduce((pre,cur)=>pre+cur)}`
+    }else{
+      this.totalAmout =" 購物車"
+    }
+  },
   catPrice(cat){return `$${cat.price}`},
+
   async getApi(){
     const respcats = await axios.get(`${this.url}cats`)
     const respadopt = await axios.get(`${this.url}adopt`)
     
     this.cats = respcats.data
     this.adopt = respadopt.data
+    this.countTotalAmount
     // console.log(`待收名單：${this.cats.length}`);
     // console.log(`收養數量：${this.adopt.length}`);
     // console.log(this.adopt);
@@ -32,7 +41,6 @@ const storedata = {
         this.adopt[adoptId].num = this.adopt[adoptId].num + 1
         const resp = await axios.patch(url+cat.id,{num:this.adopt[adoptId].num});
         // console.log(resp);
-        this.getApi()
       }else{
         const catData = {id:cat.id , num : 1 , name : cat.name , price:cat.price}
         // console.log(catData);
@@ -58,10 +66,15 @@ const storedata = {
         // console.log(resp);
       }
     }else{
+      
+      const deletePromises =this.adopt.map(cat => axios.delete(url+cat.id))
+      const resp = await Promise.all(deletePromises)
+      // console.log(deletePromises);
       this.adopt=[]
-      const resp = await axios.delete(url+cat.id) 
-      // console.log(resp);
     }
+    this.countTotalAmount
+    // console.log(this.totalAmout);
+    
   },
 
 }

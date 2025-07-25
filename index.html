@@ -13,14 +13,14 @@
 <body>
   <div id="app">
     <main>
-      <header>
+      <header class="fixed w-full z-10 top-0">
         <nav class="shadow navbar bg-base-100">
           <div class="flex-1">
             <a class="text-xl btn btn-ghost"><i class="fas fa-gem"></i> 賺很大商店</a>
           </div>
           <div class="flex-none">
-            <ul class="px-1 menu menu-horizontal">
-              <button class="btn btn-ghost fas fa-cart-shopping"> 購物車</button>
+            <ul class="px-1 menu menu-horizontal" >
+              <button class="btn btn-ghost fas fa-cart-shopping" x-data="header" x-text="$store.data.totalAmout"></button>
               <li>
                 <a href="https://github.com/5xTraining/shopping-cat-v3" target="_blank"><i
                     class="fa-brands fa-github"></i> GitHub</a>
@@ -30,7 +30,7 @@
         </nav>
       </header>
 
-      <section class="container px-6 py-3 mx-auto">
+      <section class="px-6 py-3 mx-auto mt-17">
         <p class="px-6 py-2 bg-yellow-400 rounded-full">請以認養取代購買！</p>
         <div class="grid grid-cols-1 gap-3 my-2 lg:grid-cols-6 sm:grid-cols-3" x-data="commodity">
           <template x-for="cat in $store.data.cats">
